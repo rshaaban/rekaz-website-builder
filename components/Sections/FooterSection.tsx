@@ -7,16 +7,17 @@ interface FooterSectionProps {
   isPreview?: boolean;
 }
 
-export const FooterSection = ({ section, isPreview = false }: FooterSectionProps) => {
+export const FooterSection = ({ section }: FooterSectionProps) => {
   const { copyright, links } = section.content;
+  const typedLinks = links as string[];
 
   return (
     <footer className="w-full bg-gray-900 text-white py-8">
       <div className="container mx-auto px-4">
         <div className="flex flex-col md:flex-row justify-between items-center">
-          <p className="text-sm">{copyright}</p>
+          <p className="text-sm">{copyright as string}</p>
           <div className="flex space-x-6 mt-4 md:mt-0">
-            {links?.map((link: string, index: number) => (
+            {typedLinks?.map((link, index) => (
               <a
                 key={index}
                 href="#"

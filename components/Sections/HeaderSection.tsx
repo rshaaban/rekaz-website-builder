@@ -7,16 +7,17 @@ interface HeaderSectionProps {
   isPreview?: boolean;
 }
 
-export const HeaderSection = ({ section, isPreview = false }: HeaderSectionProps) => {
+export const HeaderSection = ({ section }: HeaderSectionProps) => {
   const { logo, links } = section.content;
+  const typedLinks = links as string[];
 
   return (
-    <header className={`w-full bg-white border-b ${isPreview ? '' : 'shadow-sm'}`}>
+    <header className="w-full bg-white border-b shadow-sm">
       <div className="container mx-auto px-4 py-4">
         <div className="flex justify-between items-center">
-          <div className="text-xl font-bold">{logo}</div>
+          <div className="text-xl font-bold">{logo as string}</div>
           <nav className="hidden md:flex space-x-6">
-            {links?.map((link: string, index: number) => (
+            {typedLinks?.map((link, index) => (
               <a
                 key={index}
                 href="#"
