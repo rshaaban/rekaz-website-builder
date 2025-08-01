@@ -1,15 +1,22 @@
-import { ButtonHTMLAttributes, FC } from 'react';
+import { FC, ReactNode } from 'react';
 import { motion } from 'framer-motion';
 
-interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
+interface ButtonProps {
+  children: ReactNode;
   variant?: 'primary' | 'secondary' | 'danger';
+  onClick?: () => void;
+  disabled?: boolean;
+  className?: string;
+  type?: 'button' | 'submit' | 'reset';
 }
 
 export const Button: FC<ButtonProps> = ({
   children,
   variant = 'primary',
   className = '',
-  ...props
+  onClick,
+  disabled,
+  type = 'button',
 }) => {
   const variants = {
     primary: 'bg-blue-600 hover:bg-blue-700 text-white',
@@ -22,7 +29,9 @@ export const Button: FC<ButtonProps> = ({
       whileHover={{ scale: 1.02 }}
       whileTap={{ scale: 0.98 }}
       className={`px-4 py-2 rounded-lg font-medium transition-colors ${variants[variant]} ${className}`}
-      {...props}
+      onClick={onClick}
+      disabled={disabled}
+      type={type}
     >
       {children}
     </motion.button>
