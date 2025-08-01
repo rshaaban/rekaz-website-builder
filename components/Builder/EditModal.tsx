@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { useBuilderStore } from '@/lib/store';
 import { Section } from '@/lib/types';
@@ -16,6 +16,14 @@ export const EditModal = ({ section, onClose }: EditModalProps) => {
   const updateSection = useBuilderStore((state) => state.updateSection);
   const [content, setContent] = useState(section.content);
 
+  useEffect(() => {
+    // Prevent body scroll when modal is open
+    document.body.style.overflow = 'hidden';
+    return () => {
+      document.body.style.overflow = 'unset';
+    };
+  }, []);
+
   const handleSave = () => {
     updateSection(section.id, content);
     onClose();
@@ -30,7 +38,7 @@ export const EditModal = ({ section, onClose }: EditModalProps) => {
               <label className="block text-sm font-medium mb-2">Logo Text</label>
               <input
                 type="text"
-                value={content.logo}
+                value={content.logo as string}
                 onChange={(e) => setContent({ ...content, logo: e.target.value })}
                 className="w-full px-3 py-2 border rounded-lg"
               />
@@ -39,7 +47,7 @@ export const EditModal = ({ section, onClose }: EditModalProps) => {
               <label className="block text-sm font-medium mb-2">Navigation Links (comma-separated)</label>
               <input
                 type="text"
-                value={content.links.join(', ')}
+                value={(content.links as string[]).join(', ')}
                 onChange={(e) => setContent({ ...content, links: e.target.value.split(', ') })}
                 className="w-full px-3 py-2 border rounded-lg"
               />
@@ -53,7 +61,7 @@ export const EditModal = ({ section, onClose }: EditModalProps) => {
               <label className="block text-sm font-medium mb-2">Title</label>
               <input
                 type="text"
-                value={content.title}
+                value={content.title as string}
                 onChange={(e) => setContent({ ...content, title: e.target.value })}
                 className="w-full px-3 py-2 border rounded-lg"
               />
@@ -62,7 +70,7 @@ export const EditModal = ({ section, onClose }: EditModalProps) => {
               <label className="block text-sm font-medium mb-2">Subtitle</label>
               <input
                 type="text"
-                value={content.subtitle}
+                value={content.subtitle as string}
                 onChange={(e) => setContent({ ...content, subtitle: e.target.value })}
                 className="w-full px-3 py-2 border rounded-lg"
               />
@@ -71,7 +79,7 @@ export const EditModal = ({ section, onClose }: EditModalProps) => {
               <label className="block text-sm font-medium mb-2">Button Text</label>
               <input
                 type="text"
-                value={content.buttonText}
+                value={content.buttonText as string}
                 onChange={(e) => setContent({ ...content, buttonText: e.target.value })}
                 className="w-full px-3 py-2 border rounded-lg"
               />
@@ -80,7 +88,7 @@ export const EditModal = ({ section, onClose }: EditModalProps) => {
               <label className="block text-sm font-medium mb-2">Image URL</label>
               <input
                 type="text"
-                value={content.imageUrl}
+                value={content.imageUrl as string}
                 onChange={(e) => setContent({ ...content, imageUrl: e.target.value })}
                 className="w-full px-3 py-2 border rounded-lg"
               />
@@ -88,18 +96,19 @@ export const EditModal = ({ section, onClose }: EditModalProps) => {
           </>
         );
       case 'features':
+        const features = content.features as Array<{ title: string; description: string }>;
         return (
           <>
             <div>
               <label className="block text-sm font-medium mb-2">Section Title</label>
               <input
                 type="text"
-                value={content.title}
+                value={content.title as string}
                 onChange={(e) => setContent({ ...content, title: e.target.value })}
                 className="w-full px-3 py-2 border rounded-lg"
               />
             </div>
-            {content.features.map((feature: { title: string; description: string }, index: number) => (
+            {features.map((feature, index) => (
               <div key={index} className="border p-3 rounded-lg">
                 <h4 className="font-medium mb-2">Feature {index + 1}</h4>
                 <input
@@ -107,7 +116,7 @@ export const EditModal = ({ section, onClose }: EditModalProps) => {
                   placeholder="Title"
                   value={feature.title}
                   onChange={(e) => {
-                    const newFeatures = [...content.features];
+                    const newFeatures = [...features];
                     newFeatures[index] = { ...feature, title: e.target.value };
                     setContent({ ...content, features: newFeatures });
                   }}
@@ -118,7 +127,7 @@ export const EditModal = ({ section, onClose }: EditModalProps) => {
                   placeholder="Description"
                   value={feature.description}
                   onChange={(e) => {
-                    const newFeatures = [...content.features];
+                    const newFeatures = [...features];
                     newFeatures[index] = { ...feature, description: e.target.value };
                     setContent({ ...content, features: newFeatures });
                   }}
@@ -135,7 +144,7 @@ export const EditModal = ({ section, onClose }: EditModalProps) => {
               <label className="block text-sm font-medium mb-2">Copyright Text</label>
               <input
                 type="text"
-                value={content.copyright}
+                value={content.copyright as string}
                 onChange={(e) => setContent({ ...content, copyright: e.target.value })}
                 className="w-full px-3 py-2 border rounded-lg"
               />
@@ -144,7 +153,7 @@ export const EditModal = ({ section, onClose }: EditModalProps) => {
               <label className="block text-sm font-medium mb-2">Footer Links (comma-separated)</label>
               <input
                 type="text"
-                value={content.links.join(', ')}
+                value={(content.links as string[]).join(', ')}
                 onChange={(e) => setContent({ ...content, links: e.target.value.split(', ') })}
                 className="w-full px-3 py-2 border rounded-lg"
               />
@@ -169,11 +178,11 @@ export const EditModal = ({ section, onClose }: EditModalProps) => {
             <X className="w-5 h-5" />
           </button>
         </div>
-
+        
         <div className="space-y-4">
           {renderEditFields()}
         </div>
-
+        
         <div className="flex justify-end space-x-2 mt-6">
           <Button variant="secondary" onClick={onClose}>
             Cancel
