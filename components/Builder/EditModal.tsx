@@ -40,7 +40,7 @@ export const EditModal = ({ section, onClose }: EditModalProps) => {
                 type="text"
                 value={content.logo as string}
                 onChange={(e) => setContent({ ...content, logo: e.target.value })}
-                className="w-full px-3 py-2 border rounded-lg"
+                className="w-full px-3 py-2 border rounded-lg text-sm"
               />
             </div>
             <div>
@@ -49,7 +49,7 @@ export const EditModal = ({ section, onClose }: EditModalProps) => {
                 type="text"
                 value={(content.links as string[]).join(', ')}
                 onChange={(e) => setContent({ ...content, links: e.target.value.split(', ') })}
-                className="w-full px-3 py-2 border rounded-lg"
+                className="w-full px-3 py-2 border rounded-lg text-sm"
               />
             </div>
           </>
@@ -63,7 +63,7 @@ export const EditModal = ({ section, onClose }: EditModalProps) => {
                 type="text"
                 value={content.title as string}
                 onChange={(e) => setContent({ ...content, title: e.target.value })}
-                className="w-full px-3 py-2 border rounded-lg"
+                className="w-full px-3 py-2 border rounded-lg text-sm"
               />
             </div>
             <div>
@@ -72,7 +72,7 @@ export const EditModal = ({ section, onClose }: EditModalProps) => {
                 type="text"
                 value={content.subtitle as string}
                 onChange={(e) => setContent({ ...content, subtitle: e.target.value })}
-                className="w-full px-3 py-2 border rounded-lg"
+                className="w-full px-3 py-2 border rounded-lg text-sm"
               />
             </div>
             <div>
@@ -81,7 +81,7 @@ export const EditModal = ({ section, onClose }: EditModalProps) => {
                 type="text"
                 value={content.buttonText as string}
                 onChange={(e) => setContent({ ...content, buttonText: e.target.value })}
-                className="w-full px-3 py-2 border rounded-lg"
+                className="w-full px-3 py-2 border rounded-lg text-sm"
               />
             </div>
             <div>
@@ -90,7 +90,7 @@ export const EditModal = ({ section, onClose }: EditModalProps) => {
                 type="text"
                 value={content.imageUrl as string}
                 onChange={(e) => setContent({ ...content, imageUrl: e.target.value })}
-                className="w-full px-3 py-2 border rounded-lg"
+                className="w-full px-3 py-2 border rounded-lg text-sm"
               />
             </div>
           </>
@@ -105,12 +105,12 @@ export const EditModal = ({ section, onClose }: EditModalProps) => {
                 type="text"
                 value={content.title as string}
                 onChange={(e) => setContent({ ...content, title: e.target.value })}
-                className="w-full px-3 py-2 border rounded-lg"
+                className="w-full px-3 py-2 border rounded-lg text-sm"
               />
             </div>
             {features.map((feature, index) => (
               <div key={index} className="border p-3 rounded-lg">
-                <h4 className="font-medium mb-2">Feature {index + 1}</h4>
+                <h4 className="font-medium mb-2 text-sm">Feature {index + 1}</h4>
                 <input
                   type="text"
                   placeholder="Title"
@@ -120,7 +120,7 @@ export const EditModal = ({ section, onClose }: EditModalProps) => {
                     newFeatures[index] = { ...feature, title: e.target.value };
                     setContent({ ...content, features: newFeatures });
                   }}
-                  className="w-full px-3 py-2 border rounded-lg mb-2"
+                  className="w-full px-3 py-2 border rounded-lg mb-2 text-sm"
                 />
                 <input
                   type="text"
@@ -131,7 +131,7 @@ export const EditModal = ({ section, onClose }: EditModalProps) => {
                     newFeatures[index] = { ...feature, description: e.target.value };
                     setContent({ ...content, features: newFeatures });
                   }}
-                  className="w-full px-3 py-2 border rounded-lg"
+                  className="w-full px-3 py-2 border rounded-lg text-sm"
                 />
               </div>
             ))}
@@ -146,7 +146,7 @@ export const EditModal = ({ section, onClose }: EditModalProps) => {
                 type="text"
                 value={content.copyright as string}
                 onChange={(e) => setContent({ ...content, copyright: e.target.value })}
-                className="w-full px-3 py-2 border rounded-lg"
+                className="w-full px-3 py-2 border rounded-lg text-sm"
               />
             </div>
             <div>
@@ -155,7 +155,7 @@ export const EditModal = ({ section, onClose }: EditModalProps) => {
                 type="text"
                 value={(content.links as string[]).join(', ')}
                 onChange={(e) => setContent({ ...content, links: e.target.value.split(', ') })}
-                className="w-full px-3 py-2 border rounded-lg"
+                className="w-full px-3 py-2 border rounded-lg text-sm"
               />
             </div>
           </>
@@ -166,14 +166,14 @@ export const EditModal = ({ section, onClose }: EditModalProps) => {
   };
 
   return (
-    <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
+    <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
       <motion.div
         initial={{ opacity: 0, scale: 0.9 }}
         animate={{ opacity: 1, scale: 1 }}
-        className="bg-white rounded-lg p-6 w-full max-w-md max-h-[80vh] overflow-y-auto"
+        className="bg-white rounded-lg p-4 md:p-6 w-full max-w-md max-h-[90vh] md:max-h-[80vh] overflow-y-auto"
       >
         <div className="flex justify-between items-center mb-4">
-          <h2 className="text-xl font-semibold">Edit {section.type}</h2>
+          <h2 className="text-lg md:text-xl font-semibold">Edit {section.type}</h2>
           <button onClick={onClose} className="p-1 hover:bg-gray-100 rounded">
             <X className="w-5 h-5" />
           </button>
@@ -184,10 +184,10 @@ export const EditModal = ({ section, onClose }: EditModalProps) => {
         </div>
         
         <div className="flex justify-end space-x-2 mt-6">
-          <Button variant="secondary" onClick={onClose}>
+          <Button variant="secondary" onClick={onClose} className="text-sm">
             Cancel
           </Button>
-          <Button onClick={handleSave}>
+          <Button onClick={handleSave} className="text-sm">
             Save Changes
           </Button>
         </div>
