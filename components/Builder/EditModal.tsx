@@ -99,7 +99,7 @@ export const EditModal = ({ section, onClose }: EditModalProps) => {
                 className="w-full px-3 py-2 border rounded-lg"
               />
             </div>
-            {content.features.map((feature: any, index: number) => (
+            {content.features.map((feature: { title: string; description: string }, index: number) => (
               <div key={index} className="border p-3 rounded-lg">
                 <h4 className="font-medium mb-2">Feature {index + 1}</h4>
                 <input
@@ -169,11 +169,11 @@ export const EditModal = ({ section, onClose }: EditModalProps) => {
             <X className="w-5 h-5" />
           </button>
         </div>
-        
+
         <div className="space-y-4">
           {renderEditFields()}
         </div>
-        
+
         <div className="flex justify-end space-x-2 mt-6">
           <Button variant="secondary" onClick={onClose}>
             Cancel

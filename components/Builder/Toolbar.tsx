@@ -32,7 +32,7 @@ export const Toolbar = () => {
           const data = JSON.parse(text);
           importSections(data);
           toast.success('Design imported successfully!');
-        } catch (error) {
+        } catch {
           toast.error('Invalid file format');
         }
       }
