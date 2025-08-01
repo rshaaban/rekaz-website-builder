@@ -26,10 +26,13 @@ export default function Home() {
         <div className={`${sidebarOpen ? 'block' : 'hidden'} md:block absolute md:relative z-40 h-full`}>
           {/* Mobile overlay */}
           <div 
-            className={`${sidebarOpen ? 'block' : 'hidden'} md:hidden fixed inset-0 bg-black bg-opacity-50`}
+            className={`${sidebarOpen ? 'block' : 'hidden'} md:hidden fixed inset-0 bg-black bg-opacity-50 z-30`}
             onClick={() => setSidebarOpen(false)}
           />
-          <SectionLibrary />
+          {/* Sidebar container with fixed width on mobile */}
+          <div className="relative z-40 h-full w-[270px] md:w-auto">
+            <SectionLibrary />
+          </div>
         </div>
         
         <PreviewArea />
