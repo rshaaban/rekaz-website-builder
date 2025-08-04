@@ -31,7 +31,7 @@ export default function Home() {
           />
           {/* Sidebar container with fixed width on mobile */}
           <div className="relative z-40 h-full w-[270px] md:w-auto">
-            <SectionLibrary />
+            <SectionLibrary onSectionAdd={() => setSidebarOpen(false)} />
           </div>
         </div>
         

@@ -48,7 +48,8 @@ export const SectionLibrary = ({ onSectionAdd }: SectionLibraryProps) => {
 
   const handleAddSection = (type: SectionTemplate['type']) => {
     addSection(type);
-    if (onSectionAdd) {
+    // Only call onSectionAdd on mobile (it will close the sidebar)
+    if (onSectionAdd && window.innerWidth < 768) {
       onSectionAdd();
     }
   };
@@ -56,7 +57,7 @@ export const SectionLibrary = ({ onSectionAdd }: SectionLibraryProps) => {
   return (
     <div className="w-full md:w-64 bg-gray-50 p-3 md:p-4 border-r overflow-y-auto h-full md:relative absolute left-0 top-0 bg-white md:bg-gray-50 shadow-lg md:shadow-none">
       <h2 className="text-base md:text-lg font-semibold mb-3 md:mb-4">Section Library</h2>
-      <div className="grid grid-cols-2 md:grid-cols-1 gap-2">
+      <div className="grid grid-cols-1 gap-2">
         {sectionTemplates.map((template) => {
           const Icon = iconMap[template.icon as keyof typeof iconMap];
           
